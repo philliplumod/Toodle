@@ -26,6 +26,7 @@ class MyPopupTimeButtonState extends State<MyPopupTimeButton> {
 
     final TimeOfDay? pickedTime =
         await showTimePicker(context: context, initialTime: _selectedTime);
+
     if (pickedTime != null && pickedTime != _selectedTime) {
       setState(() {
         _selectedTime = pickedTime;
@@ -41,7 +42,7 @@ class MyPopupTimeButtonState extends State<MyPopupTimeButton> {
           padding: const EdgeInsets.all(16.0),
           child: TextButton(
             onPressed: _selectDateAndTime,
-            child: Text('Select Time and Date'),
+            child: const Text('Select Time and Date'),
           ),
         ),
       ],

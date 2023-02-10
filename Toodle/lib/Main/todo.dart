@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:toodle/Widgets/popup.dart';
 import 'package:toodle/Widgets/text_name.dart';
+import 'package:intl/intl.dart';
 
 import '../Widgets/label.dart';
 import '../Widgets/text._description.dart';
@@ -42,6 +43,27 @@ class TaskAdd extends StatefulWidget {
 class _TaskAddState extends State<TaskAdd> {
   final _descriptionController = TextEditingController();
   final _nameController = TextEditingController();
+  final _categoryController = TextEditingController();
+  // final DateTime _selectedDateTime = DateTime.now();
+  final TimeOfDay _selectedTime = TimeOfDay.now();
+  final DateTime _selectedDate = DateTime.now();
+
+  void _submitTask() {
+    String taskName = _nameController.text;
+    String taskDescription = _descriptionController.text;
+    String categoryController = _categoryController.text;
+    final taskTime =
+        '${_selectedTime.hour}:${_selectedTime.minute} ${_selectedTime.hour < 12 ? "AM" : "PM"}';
+    final taskDate =
+        '${_selectedDate.month}/${_selectedDate.day}/${_selectedDate.year}';
+
+    debugPrint("Name: $taskName");
+    debugPrint("Description: $taskDescription");
+    debugPrint("Category: $categoryController");
+    debugPrint("Time: $taskDate and $taskTime");
+
+    // Use the task name for your logic
+  }
 
   void _openTaskInputScreen() {
     showModalBottomSheet(
@@ -75,13 +97,19 @@ class _TaskAddState extends State<TaskAdd> {
                 padding: const EdgeInsets.only(bottom: 10, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    MyPopupMenuButton(),
-                    MyPopupTimeButton(),
+                  children: [
+                    MyPopupMenuButton(
+                      controller: _categoryController,
+                    ),
+                    const MyPopupTimeButton(),
                   ],
                 ),
               ),
-              TextButton(onPressed: null, child: Text('Submit'))
+              TextButton(
+                  onPressed: () {
+                    _submitTask();
+                  },
+                  child: const Text('Submit'))
             ],
           ),
         ),
