@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toodle/Widgets/popup.dart';
 
 import '../Widgets/text.dart';
 
@@ -50,8 +51,16 @@ class _TaskAddState extends State<TaskAdd> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            CustomTextField(),
+          children: [
+            const CustomTextField(),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: const [
+                  MyPopupMenuButton(),
+                ],
+              ),
+            )
           ],
         ),
       ),
