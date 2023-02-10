@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:toodle/Widgets/popup.dart';
+import 'package:toodle/Widgets/text_name.dart';
 
-import '../Widgets/text.dart';
+import '../Widgets/label.dart';
+import '../Widgets/text._description.dart';
+import '../Widgets/time_picker.dart';
 
 class TaskList extends StatelessWidget {
   final Function onAddTask;
@@ -37,8 +40,14 @@ class TaskAdd extends StatefulWidget {
 }
 
 class _TaskAddState extends State<TaskAdd> {
+  final _descriptionController = TextEditingController();
+  final _nameController = TextEditingController();
+
   void _openTaskInputScreen() {
     showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10))),
       isScrollControlled: true,
       elevation: 5,
       context: context,
@@ -48,20 +57,33 @@ class _TaskAddState extends State<TaskAdd> {
             left: 15,
             right: 15,
             bottom: MediaQuery.of(context).viewInsets.bottom + 15),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CustomTextField(),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: const [
-                  MyPopupMenuButton(),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const LabelWithPadding(labelText: 'Name'),
+              CustomTextFieldName(
+                controller: _nameController,
               ),
-            )
-          ],
+              const LabelWithPadding(labelText: 'Description'),
+              CustomTextFieldDescription(
+                controller: _descriptionController,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, top: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    MyPopupMenuButton(),
+                    MyPopupTimeButton(),
+                  ],
+                ),
+              ),
+              TextButton(onPressed: null, child: Text('Submit'))
+            ],
+          ),
         ),
       ),
     );

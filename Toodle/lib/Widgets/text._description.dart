@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({super.key});
+class CustomTextFieldDescription extends StatelessWidget {
+  final TextEditingController controller;
+
+  const CustomTextFieldDescription({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5),
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
             counterText: '',
             filled: true,
@@ -17,7 +20,7 @@ class CustomTextField extends StatelessWidget {
             border: InputBorder.none),
         keyboardType: TextInputType.multiline,
         maxLines: null,
-        maxLength: 100,
+        maxLength: 200,
       ),
     );
   }
