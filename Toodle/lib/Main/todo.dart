@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../Widgets/text.dart';
+
 class TaskList extends StatelessWidget {
   final Function onAddTask;
   const TaskList({super.key, required this.onAddTask});
@@ -36,42 +38,23 @@ class TaskAdd extends StatefulWidget {
 class _TaskAddState extends State<TaskAdd> {
   void _openTaskInputScreen() {
     showModalBottomSheet(
-      backgroundColor: Color.fromARGB(250, 255, 255, 255),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15.0), topRight: Radius.circular(15.0)),
-      ),
+      isScrollControlled: true,
+      elevation: 5,
       context: context,
-      builder: (context) {
-        return SizedBox(
-          height: 200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      counterText: "",
-                      filled: true,
-                      fillColor: Colors.grey.withOpacity(.2),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 30, horizontal: 20),
-                      border: InputBorder.none,
-                    ),
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    maxLength: 20,
-                  ),
-                ),
-              )
-            ],
-          ),
-        );
-      },
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+            top: 15,
+            left: 15,
+            right: 15,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 15),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            CustomTextField(),
+          ],
+        ),
+      ),
     );
   }
 
