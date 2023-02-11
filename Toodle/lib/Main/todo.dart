@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:toodle/Widgets/popup.dart';
 import 'package:toodle/Widgets/text_name.dart';
-import 'package:intl/intl.dart';
 
 import '../Widgets/label.dart';
 import '../Widgets/text._description.dart';
 import '../Widgets/time_picker.dart';
+
+typedef OnTimeSelected = void Function(TimeOfDay timeOfDay);
 
 class TaskList extends StatelessWidget {
   final Function onAddTask;
@@ -44,23 +45,19 @@ class _TaskAddState extends State<TaskAdd> {
   final _descriptionController = TextEditingController();
   final _nameController = TextEditingController();
   final _categoryController = TextEditingController();
+  final _timeController = TextEditingController();
   // final DateTime _selectedDateTime = DateTime.now();
-  final TimeOfDay _selectedTime = TimeOfDay.now();
-  final DateTime _selectedDate = DateTime.now();
 
   void _submitTask() {
     String taskName = _nameController.text;
     String taskDescription = _descriptionController.text;
     String categoryController = _categoryController.text;
-    final taskTime =
-        '${_selectedTime.hour}:${_selectedTime.minute} ${_selectedTime.hour < 12 ? "AM" : "PM"}';
-    final taskDate =
-        '${_selectedDate.month}/${_selectedDate.day}/${_selectedDate.year}';
+    String timeController = _timeController.text;
 
     debugPrint("Name: $taskName");
     debugPrint("Description: $taskDescription");
     debugPrint("Category: $categoryController");
-    debugPrint("Time: $taskDate and $taskTime");
+    debugPrint("Time: $timeController");
 
     // Use the task name for your logic
   }
@@ -101,7 +98,9 @@ class _TaskAddState extends State<TaskAdd> {
                     MyPopupMenuButton(
                       controller: _categoryController,
                     ),
-                    const MyPopupTimeButton(),
+                    MyPopupTimeButton(
+                      controller: _timeController,
+                    ),
                   ],
                 ),
               ),

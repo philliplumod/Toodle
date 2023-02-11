@@ -1,50 +1,42 @@
 import 'package:flutter/material.dart';
 
+typedef OnTimeSelected = void Function(TimeOfDay timeOfDay);
+
 class MyPopupTimeButton extends StatefulWidget {
-  const MyPopupTimeButton({super.key});
+  final TextEditingController controller;
+
+  const MyPopupTimeButton({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
 
   @override
-  MyPopupTimeButtonState createState() => MyPopupTimeButtonState();
+  _MyPopupTimeButtonState createState() => _MyPopupTimeButtonState();
 }
 
-class MyPopupTimeButtonState extends State<MyPopupTimeButton> {
-  DateTime _selectedDate = DateTime.now();
-  TimeOfDay _selectedTime = TimeOfDay.now();
+class _MyPopupTimeButtonState extends State<MyPopupTimeButton> {
+  TimeOfDay _timeOfDay = const TimeOfDay(hour: 8, minute: 30);
 
-  Future<void> _selectDateAndTime() async {
-    final DateTime? pickedDate = await showDatePicker(
+  Future<void> _showTimePicker() async {
+    final TimeOfDay? selectedTime = await showTimePicker(
       context: context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2015, 8),
-      lastDate: DateTime(2101),
+      initialTime: TimeOfDay.now(),
     );
-    if (pickedDate != null && pickedDate != _selectedDate) {
+    if (selectedTime != null) {
       setState(() {
-        _selectedDate = pickedDate;
+        _timeOfDay = selectedTime;
       });
-    }
-
-    final TimeOfDay? pickedTime =
-        await showTimePicker(context: context, initialTime: _selectedTime);
-
-    if (pickedTime != null && pickedTime != _selectedTime) {
-      setState(() {
-        _selectedTime = pickedTime;
-      });
+      // ignore: use_build_context_synchronously
+      widget.controller.text = _timeOfDay.format(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        Container(
-          padding: const EdgeInsets.all(16.0),
-          child: TextButton(
-            onPressed: _selectDateAndTime,
-            child: const Text('Select Time and Date'),
-          ),
-        ),
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        TextButton(onPressed: _showTimePicker, child: Text('PICK TIME')),
       ],
     );
   }
