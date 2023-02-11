@@ -5,13 +5,10 @@ typedef OnTimeSelected = void Function(TimeOfDay timeOfDay);
 class MyPopupTimeButton extends StatefulWidget {
   final TextEditingController controller;
 
-  const MyPopupTimeButton({
-    Key? key,
-    required this.controller,
-  }) : super(key: key);
+  const MyPopupTimeButton({super.key, required this.controller});
 
   @override
-  _MyPopupTimeButtonState createState() => _MyPopupTimeButtonState();
+  State<MyPopupTimeButton> createState() => _MyPopupTimeButtonState();
 }
 
 class _MyPopupTimeButtonState extends State<MyPopupTimeButton> {
@@ -36,7 +33,12 @@ class _MyPopupTimeButtonState extends State<MyPopupTimeButton> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        TextButton(onPressed: _showTimePicker, child: Text('PICK TIME')),
+        TextButton(
+            onPressed: _showTimePicker,
+            child: const Text(
+              'Pick Time',
+              style: TextStyle(color: Colors.grey),
+            )),
       ],
     );
   }

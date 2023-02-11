@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 
 class MyPopupMenuButton extends StatefulWidget {
   final TextEditingController controller;
-
   const MyPopupMenuButton({super.key, required this.controller});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _MyPopupMenuButtonState createState() => _MyPopupMenuButtonState();
+  State<MyPopupMenuButton> createState() => _MyPopupMenuButtonState();
 }
 
 class _MyPopupMenuButtonState extends State<MyPopupMenuButton> {

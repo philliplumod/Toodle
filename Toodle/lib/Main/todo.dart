@@ -6,8 +6,6 @@ import '../Widgets/label.dart';
 import '../Widgets/text._description.dart';
 import '../Widgets/time_picker.dart';
 
-typedef OnTimeSelected = void Function(TimeOfDay timeOfDay);
-
 class TaskList extends StatelessWidget {
   final Function onAddTask;
   const TaskList({super.key, required this.onAddTask});
